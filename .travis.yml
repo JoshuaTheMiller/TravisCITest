@@ -6,16 +6,19 @@ branches:
   only:
     - master
 
-before_script:
+install:
   - npm install -g @angular/cli
 
+before_script:
+  - npm install
+
 script:
-  - ng build --prod --base-href $BASE_HREF
+  - ng build --prod --base-href ${BASE_HREF}
 
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  repo: $GITHUB_DEPLOY_REPO
+  github_token: ${GITHUB_TOKEN}
+  repo: ${GITHUB_DEPLOY_REPO}
   target_branch: master
-  local_dir: ${TRAVIS_BUILD_DIR}/Dist
+  local_dir: ${TRAVIS_BUILD_DIR}/dist
