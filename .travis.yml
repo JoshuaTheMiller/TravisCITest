@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - "8.9.0"
+
+branches:
+  only:
+    - master
+
+before_script:
+  - npm install -g @angular/cli
+
+script:
+  - ng build --prod --base-href $BASE_HREF
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  repo: $GITHUB_DEPLOY_REPO
+  target_branch: master
+  local_dir: ${TRAVIS_BUILD_DIR}/Dist
