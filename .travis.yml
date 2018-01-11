@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - "8.9.0"
 
+sudo: required
+
 env:
   - BUILD_PATH="/dist"
 
@@ -17,8 +19,8 @@ before_script:
 
 script:
   - ng build --prod --base-href ${BASE_HREF} --output-path ${BUILD_PATH}
-  - git clone ${CLONE_SOURCE_URL} ${CLONE_TEMP_STORAGE_PATH} --depth=1 --branch=master && rm -rf ${CLONE_TEMP_STORAGE_PATH}/.git
-  - cp ${CLONE_TEMP_STORAGE_PATH} ${BUILD_PATH}${CLONE_FINAL_STORAGE_PATH} -r
+  - sudo git clone ${CLONE_SOURCE_URL} ${CLONE_TEMP_STORAGE_PATH} --depth=1 --branch=master && rm -rf ${CLONE_TEMP_STORAGE_PATH}/.git
+  - sudo cp ${CLONE_TEMP_STORAGE_PATH} ${BUILD_PATH}${CLONE_FINAL_STORAGE_PATH} -r
 
 before_deploy:
   - cd ${TRAVIS_BUILD_DIR}
