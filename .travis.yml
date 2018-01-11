@@ -16,7 +16,7 @@ before_script:
   - npm install
 
 script:
-  - ng build --prod --base-href ${BASE_HREF} -o ${BUILD_PATH}
+  - ng build --prod --base-href ${BASE_HREF} --output-path ${BUILD_PATH}
   - git clone ${CLONE_SOURCE_URL} ${CLONE_TEMP_STORAGE_PATH} --depth=1 --branch=master && rm -rf ${CLONE_TEMP_STORAGE_PATH}/.git
   - cp ${CLONE_TEMP_STORAGE_PATH} ${BUILD_PATH}${CLONE_FINAL_STORAGE_PATH} -r
 
