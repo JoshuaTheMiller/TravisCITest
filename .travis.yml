@@ -2,6 +2,9 @@ language: node_js
 node_js:
   - "8.9.0"
 
+env:
+  - BUILD_PATH="/dist"
+
 branches:
   only:
     - master
@@ -13,7 +16,9 @@ before_script:
   - npm install
 
 script:
-  - ng build --prod --base-href ${BASE_HREF}
+  - ng build --prod --base-href ${BASE_HREF} -o ${BUILD_PATH}
+  - git clone ${CLONE_SOURCE_URL} ${CLONE_TEMP_STORAGE_PATH} --depth=1 --branch=master && rm -rf ${CLONE_TEMP_STORAGE_PATH}/.git
+  - cp ${CLONE_TEMP_STORAGE_PATH} ${BUILD_PATH}${CLONE_FINAL_STORAGE_PATH} -r
 
 before_deploy:
   - cd ${TRAVIS_BUILD_DIR}
@@ -24,4 +29,4 @@ deploy:
   github_token: ${GITHUB_TOKEN}
   repo: ${GITHUB_DEPLOY_REPO}
   target_branch: master
-  local_dir: /dist
+  local_dir: ${BUILD_PATH}
